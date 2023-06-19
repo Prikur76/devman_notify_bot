@@ -50,9 +50,8 @@ def main():
                         help='Ввести chat_id')
     args = parser.parse_args()
     user_id = args.chat_id
-
+    logger.debug('Бот DEVMAN запущен')
     while True:
-        logger.debug('Бот DEVMAN запущен')
         try:
             response = requests.get(
                 url=long_polling_url,
