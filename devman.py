@@ -1,15 +1,15 @@
 import argparse
-import logging
-import os
+import logging.config
+import requests
 import textwrap as tw
 import time
 from datetime import datetime
-
-import requests
-from dotenv import load_dotenv
 from telegram import Bot
 
-logger = logging.getLogger(__name__)
+import settings
+
+logging.config.dictConfig(settings.logger_config)
+logger = logging.getLogger('app_logger')
 
 
 def get_message_for_chat(review):
@@ -35,32 +35,24 @@ def get_message_for_chat(review):
 
 
 def main():
-    logging.basicConfig(
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        level=logging.INFO
-    )
-
-    load_dotenv()
-    dvmn_token = os.environ.get('DEVMAN_TOKEN')
-    tg_token = os.environ.get('TG_TOKEN')
-    chat_id = os.environ.get('CHAT_ID')
 
     long_polling_url = 'https://dvmn.org/api/long_polling/'
-    headers = {'Authorization': f'Token {dvmn_token}'}
+    headers = {'Authorization': f'Token {settings.DVMN_TOKEN}'}
     payload = {'timestamp': ''}
 
-    bot = Bot(token=tg_token)
+    bot = Bot(token=settings.DVMN_BOT_TOKEN)
 
     parser = argparse.ArgumentParser(
         description='Получение уведомлений с сайта dvmn.org'
     )
     parser.add_argument('chat_id', nargs='?',
-                        type=int, default=int(chat_id),
+                        type=int, default=int(settings.CHAT_ID),
                         help='Ввести chat_id')
     args = parser.parse_args()
     user_id = args.chat_id
 
     while True:
+        logger.debug('Бот запущен')
         try:
             response = requests.get(
                 url=long_polling_url,
@@ -78,10 +70,12 @@ def main():
                 payload['timestamp'] = datetime.timestamp(datetime.now())
 
         except requests.exceptions.ConnectionError:
-            logger.error("Lost HTTP connection")
+            logger.debug('Бот упал с ошибкой:')
+            logger.error(e)
             time.sleep(60)
         except requests.exceptions.ReadTimeout:
-            pass
+            logger.debug('Бот упал с ошибкой:')
+            logger.error(e)
 
 
 if __name__ == '__main__':
