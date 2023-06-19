@@ -73,9 +73,8 @@ def main():
             logger.debug('Бот DEVMAN упал с ошибкой:')
             logger.exception(conn_err)
             time.sleep(60)
-        except requests.exceptions.ReadTimeout as read_timeout_err:
-            logger.debug('Бот DEVMAN упал с ошибкой:')
-            logger.exception(read_timeout_err)
+        except requests.exceptions.ReadTimeout:
+            pass
 
 
 if __name__ == '__main__':
