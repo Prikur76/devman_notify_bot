@@ -28,7 +28,7 @@ def get_message_for_chat(review):
         message = """\
         🔔🔔🔔
         😞 К сожалению, урок '%s' не пройден.👎
-        👀 Посмотрите код-ревью преподавателя: %s.
+        👀 Посмотреть код-ревью преподавателя: %s.
         🕦 %s
         """ % (review['lesson_title'], review['lesson_url'], review_date)
     return tw.dedent(message)
@@ -52,7 +52,7 @@ def main():
     user_id = args.chat_id
 
     while True:
-        logger.debug('Бот запущен')
+        logger.debug('Бот DEVMAN запущен')
         try:
             response = requests.get(
                 url=long_polling_url,
@@ -69,13 +69,13 @@ def main():
             elif review['status'] == 'timeout':
                 payload['timestamp'] = datetime.timestamp(datetime.now())
 
-        except requests.exceptions.ConnectionError:
-            logger.debug('Бот упал с ошибкой:')
-            logger.error(e)
+        except requests.exceptions.ConnectionError as conn_err:
+            logger.debug('Бот DEVMAN упал с ошибкой:')
+            logger.exception(conn_err)
             time.sleep(60)
-        except requests.exceptions.ReadTimeout:
-            logger.debug('Бот упал с ошибкой:')
-            logger.error(e)
+        except requests.exceptions.ReadTimeout as read_timeout_err:
+            logger.debug('Бот DEVMAN упал с ошибкой:')
+            logger.exception(read_timeout_err)
 
 
 if __name__ == '__main__':
