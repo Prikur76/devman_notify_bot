@@ -40,6 +40,7 @@ def get_message_for_chat(review):
 
 
 def main():
+    admin_chat_id = os.environ.get('CHAT_ID')
     admin_bot = Bot(token=os.environ.get('HELP_BOT_TOKEN'))
     admin_bot_handler = TelegramLogsHandler(
         admin_bot, admin_chat_id)
@@ -56,8 +57,6 @@ def main():
         style='{')
     streamhandler.setFormatter(streamformatter)
     logger.addHandler(streamhandler)
-
-    admin_chat_id = os.environ.get('CHAT_ID')
 
     parser = argparse.ArgumentParser(
         description='Получение уведомлений с сайта dvmn.org'
