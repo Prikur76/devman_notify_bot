@@ -41,7 +41,7 @@ def get_message_for_chat(review):
 
 def main():
     admin_chat_id = os.environ.get('CHAT_ID')
-    admin_bot = Bot(token=os.environ.get('HELP_BOT_TOKEN'))
+    admin_bot = Bot(token=os.environ.get('ADMIN_BOT_TOKEN'))
     admin_bot_handler = TelegramLogsHandler(
         admin_bot, admin_chat_id)
     admin_bot_handler.setLevel(logging.DEBUG)
@@ -68,9 +68,9 @@ def main():
     user_id = args.chat_id
 
     long_polling_url = 'https://dvmn.org/api/long_polling/'
-    headers = {'Authorization': f"Token {os.environ.get('DVMN_TOKEN')}"}
+    headers = {'Authorization': f"Token {os.environ.get('DEVMAN_TOKEN')}"}
     payload = {'timestamp': ''}
-    main_bot = Bot(token=os.environ.get('DVMN_BOT_TOKEN'))
+    main_bot = Bot(token=os.environ.get('DEVMAN_BOT_TOKEN'))
     logger.debug('Бот DEVMAN запущен')
 
     while True:
