@@ -16,7 +16,7 @@ pip install -r requirements.txt
 ```
 ### Авторизация
 Для хранения чувствительных данных (токен devman, токен основного бота, токен вспомогательного бота, chat_id пользователя) создайте файл .env 
-с переменными **`DEVMAN_TOKEN, DEVMAN_BOT_TOKEN, HELP_BOT_TOKEN, CHAT_ID`**.
+с переменными **`DEVMAN_TOKEN, DEVMAN_BOT_TOKEN, ADMIN_BOT_TOKEN, CHAT_ID`**.
 
 #### Токен Devman
 Персональный токен вида **`a7895e2a783d0XXXXXca804deca28a9035490e1`** указан на 
@@ -45,7 +45,7 @@ Please try something different".
 
 8. Повторите эти действия и создайте второго бота для контроля состояния основного бота. Полученный токен сохраните
 в переменной окружения .env, например:
-**```HELP_BOT_TOKEN=95193951:wP3db3301vnrob33BZdb33KwP3db3F1I```**.
+**```ADMIN_BOT_TOKEN=95193951:wP3db3301vnrob33BZdb33KwP3db3F1I```**.
 
 #### Узнать свой ID
 Чтобы получить свой chat_id, напишите в Telegram специальному боту: [@userinfobot](https://telegram.me/userinfobot).\
