@@ -99,6 +99,10 @@ def main():
             logger.debug('Бот DEVMAN упал с ошибкой:')
             logger.exception(conn_err)
             time.sleep(60)
+        except requests.exceptions.ConnectTimeout as ct_err:
+            logger.debug('Бот DEVMAN упал с ошибкой:')
+            logger.exception(ct_err)
+            time.sleep(60)
         except requests.exceptions.ReadTimeout:
             pass
 
