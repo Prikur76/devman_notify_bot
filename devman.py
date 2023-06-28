@@ -9,6 +9,8 @@ from datetime import datetime
 from dotenv import load_dotenv
 from telegram import Bot
 
+logger = logging.getLogger(__file__)
+
 
 class TelegramLogsHandler(logging.Handler):
     def __init__(self, tg_bot, chat_id):
@@ -47,9 +49,6 @@ def get_message_for_chat(review):
 
 def main():
     load_dotenv()
-
-    logger = logging.getLogger(__file__)
-    logger.setLevel(logging.DEBUG)
 
     admin_chat_id = os.environ.get('CHAT_ID')
     admin_bot = Bot(token=os.environ.get('ADMIN_BOT_TOKEN'))
