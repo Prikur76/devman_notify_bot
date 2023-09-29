@@ -1,0 +1,6 @@
+version: '3.9'
+services:
+  bot:
+    build: .
+    image: prikur/dvmn_bot:v.0.0.1
+    restart: always

@@ -1,0 +1,8 @@
+.idea/
+.git/
+venv/
+*.md
+.gitattributes
+.gitignore
+LICENSE
+.env
